@@ -3,183 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tjäna pengar på spel & videos</title>
-    
-    <link rel="preload" href="top_icon.png" as="image">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+    <title>Tjäna pengar</title>
     <style>
+        /* SYSTEM FONT STACK - 0ms Load Time */
         :root {
-            --bg-black: #050505;
-            --card-bg: #111417;
-            --step-bg: #161a1e;
-            --primary-green: #56b289;
-            --btn-dark: #1f1f1f;
-            --text-gray: #8e8e8e;
+            --bg: #050505;
+            --card: #111417;
+            --green: #56b289;
+            --gray: #8e8e8e;
         }
 
         body {
-            background-color: var(--bg-black);
-            background-image: radial-gradient(circle at 50% 10%, #15251e 0%, #050505 50%);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            background-image: radial-gradient(circle at 50% 0%, #15251e 0%, #050505 70%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: white;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            margin: 0;
-            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         .logo-img {
-            width: 80px; height: 80px;
-            border-radius: 20px;
+            width: 70px; height: 70px;
+            border-radius: 18px;
             margin-bottom: 15px;
-            background: #1c1c28; /* Placeholder color while loading */
-            box-shadow: 0 0 30px rgba(86, 178, 137, 0.15);
+            background: #1c1c28;
+            box-shadow: 0 0 20px rgba(86,178,137,0.2);
         }
 
-        .screen { width: 100%; max-width: 380px; display: none; flex-direction: column; align-items: center; }
+        .screen { width: 100%; max-width: 360px; display: none; flex-direction: column; align-items: center; }
         .screen.active { display: flex; }
 
-        h1 { font-size: 24px; font-weight: 800; text-align: center; margin: 0 0 8px 0; line-height: 1.1; }
-        h1 span { color: var(--primary-green); }
-        .sub-header { color: var(--text-gray); text-align: center; margin-bottom: 20px; font-size: 14px; }
+        h1 { font-size: 26px; font-weight: 800; text-align: center; margin: 0 0 10px; line-height: 1.1; letter-spacing: -0.5px; }
+        h1 span { color: var(--green); }
+        .sub { color: var(--gray); text-align: center; margin-bottom: 20px; font-size: 14px; }
 
         .card {
-            background-color: var(--card-bg);
+            background: var(--card);
             width: 100%;
-            border-radius: 25px;
-            padding: 25px 20px;
+            border-radius: 24px;
+            padding: 20px;
             border: 1px solid #1e2226;
             text-align: center;
             box-sizing: border-box;
         }
 
         .btn {
-            display: flex; align-items: center; justify-content: center;
-            width: 100%; padding: 16px; border-radius: 16px;
-            font-size: 17px; font-weight: 700; border: none;
-            cursor: pointer; text-decoration: none; margin-bottom: 10px;
+            display: block; width: 100%; padding: 18px 0; border-radius: 16px;
+            font-size: 18px; font-weight: 700; border: none; cursor: pointer;
+            text-decoration: none; margin-bottom: 10px; text-align: center;
         }
-        .btn-green { background-color: var(--primary-green); color: #0a1f16; }
-        .btn-dark { background-color: var(--btn-dark); color: white; }
+        .btn-green { background: var(--green); color: #0a1f16; }
+        .btn-dark { background: #1f1f1f; color: white; }
 
-        /* Secondary Styles (Deferred) */
-        .step-list { width: 100%; margin-bottom: 15px; }
+        /* Step List - Optimized for height */
+        .step-list { width: 100%; margin: 15px 0; }
         .step-item {
-            background: var(--step-bg); border: 1px solid #222;
-            border-radius: 15px; padding: 12px; display: flex;
+            background: #161a1e; border: 1px solid #222;
+            border-radius: 14px; padding: 10px 15px; display: flex;
             align-items: center; margin-bottom: 8px;
         }
-        .step-icon {
-            width: 36px; height: 36px; border-radius: 10px;
-            background: rgba(86, 178, 137, 0.1); border: 1px solid rgba(86, 178, 137, 0.3);
-            display: flex; align-items: center; justify-content: center;
-            margin-right: 12px; color: var(--primary-green);
+        .step-num {
+            width: 28px; height: 28px; background: rgba(86,178,137,0.1);
+            color: var(--green); border-radius: 8px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; margin-right: 12px;
         }
-        .step-title { font-weight: 700; font-size: 14px; }
-        .step-desc { font-size: 11px; color: var(--text-gray); }
+        .step-txt { font-weight: 700; font-size: 14px; }
 
+        /* Payouts */
         .payout-card {
-            background: var(--card-bg); width: 100%; padding: 15px 20px;
-            border-radius: 18px; display: flex; justify-content: space-between;
-            align-items: center; margin-bottom: 8px; border: 1px solid #1e2226;
-            box-sizing: border-box;
+            background: var(--card); width: 100%; padding: 12px 15px;
+            border-radius: 15px; display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 6px; border: 1px solid #1e2226;
+            box-sizing: border-box; font-size: 13px;
         }
-        .payout-val { color: var(--primary-green); font-weight: 700; font-size: 15px; }
-        .payout-time { color: var(--text-gray); font-size: 9px; text-transform: uppercase; }
+        .p-val { color: var(--green); font-weight: 700; }
+        .p-time { color: var(--gray); font-size: 9px; text-transform: uppercase; }
 
-        footer { margin-top: auto; padding: 20px 0; display: flex; gap: 15px; }
-        footer a { color: var(--text-gray); text-decoration: none; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+        footer { margin-top: auto; padding: 20px 0; font-size: 10px; color: var(--gray); display: flex; gap: 15px; }
     </style>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <img src="top_icon.png" alt="Icon" class="logo-img" width="80" height="80">
+    <img src="top_icon.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
 
     <div id="screen-age" class="screen active">
-        <h1>Tjäna pengar på <span>spel<br>& videos</span></h1>
-        <p class="sub-header">Tjäna pengar direkt från mobilen.</p>
+        <h1>Tjäna pengar på <span>spel & videos</span></h1>
+        <p class="sub">Tjäna pengar direkt i mobilen.</p>
         <div class="card">
-            <span style="color: var(--primary-green); text-transform: uppercase; font-weight: 700; letter-spacing: 2px; font-size: 11px; margin-bottom: 10px; display: block;">Snabb kontroll</span>
-            <h2 style="font-size: 22px; margin-bottom: 10px;">Är du 21+?</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 25px;">Vi behöver kontrollera din behörighet.</p>
-            <button onclick="showNext()" class="btn btn-green">Ja, jag är 21+</button>
-            <button class="btn btn-dark">Nej, jag är under 21</button>
+            <h2 style="font-size: 20px; margin-bottom: 15px;">Är du 21+ år?</h2>
+            <button onclick="showNext()" class="btn btn-green">JA, JAG ÄR 21+</button>
+            <button class="btn btn-dark">NEJ</button>
         </div>
     </div>
 
     <div id="screen-steps" class="screen">
-        <h1 style="font-size: 26px;">Nästan klart! 🎉</h1>
-        <p class="sub-header">Följ stegen för att få din belöning.</p>
-
+        <h1 style="font-size: 24px;">Nästan klart! 🎉</h1>
+        
         <div class="step-list">
-            <div class="step-item">
-                <div class="step-icon">1</div>
-                <div class="step-content"><div class="step-title">Ladda ner appen</div><div class="step-desc">Kom igång direkt</div></div>
-            </div>
-            <div class="step-item">
-                <div class="step-icon">2</div>
-                <div class="step-content"><div class="step-title">Skapa konto</div><div class="step-desc">Registrera med e-post</div></div>
-            </div>
-            <div class="step-item">
-                <div class="step-icon">3</div>
-                <div class="step-content"><div class="step-title">Spela och tjäna</div><div class="step-desc">Tjäna pengar direkt</div></div>
-            </div>
+            <div class="step-item"><div class="step-num">1</div><div class="step-txt">Ladda ner appen</div></div>
+            <div class="step-item"><div class="step-num">2</div><div class="step-txt">Skapa konto</div></div>
+            <div class="step-item"><div class="step-num">3</div><div class="step-txt">Börja tjäna</div></div>
         </div>
 
-        <a href="https://rainawards.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidSI6IjY5YTVkZDcyYmU3NGI4MGNjYzE0MWNlNSIsInRzIjoxNzczNzcyOTU1NDMyfQ?s2=sweden_new_index_lander" class="btn btn-green">Börja tjäna nu</a>
+        <a href="https://rainawards.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidSI6IjY5YTVkZDcyYmU3NGI4MGNjYzE0MWNlNSIsInRzIjoxNzczNzcyOTU1NDMyfQ?s2=sweden_new_index_lander" class="btn btn-green">BÖRJA TJÄNA NU</a>
 
-        <h3 style="color: var(--primary-green); font-size: 11px; text-transform: uppercase; margin: 15px 0;">Senaste utbetalningar</h3>
+        <p style="color: var(--green); font-size: 10px; font-weight: 800; margin: 10px 0;">LIVE UTBETALNINGAR</p>
         <div id="payout-container" style="width:100%"></div>
     </div>
 
-    <footer>
-        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a>
-    </footer>
+    <footer><span>PRIVACY</span><span>TERMS</span></footer>
 
     <script>
-        // JS moved to bottom so it doesn't block the visual rendering
-        const names = ["Hugo W.", "Anton L.", "Sara L.", "Erik M.", "Linnéa S.", "Oscar B.", "Maja K.", "Filip J.", "Ebba V.", "Gustav D."];
-        let activePayouts = [{ id: 1, name: "Hugo W.", amount: 158, seconds: 1 }];
+        const names = ["Hugo W.", "Anton L.", "Sara L.", "Erik M.", "Linnéa S.", "Oscar B.", "Maja K."];
+        let pActive = [{ id: 1, name: "Hugo W.", amount: 158, sec: 1 }];
 
-        function createPayoutCard(p) {
-            const card = document.createElement('div');
-            card.className = 'payout-card';
-            card.innerHTML = `<span class="payout-name">${p.name}</span><div style="text-align:right"><div class="payout-val">${p.amount} kr</div><div class="payout-time" id="time-${p.id}">${p.seconds} SEK SEDAN</div></div>`;
-            return card;
+        function drawP(p) {
+            const div = document.createElement('div');
+            div.className = 'payout-card';
+            div.innerHTML = `<b>${p.name}</b><div style="text-align:right"><div class="p-val">${p.amount} kr</div><div class="p-time" id="t-${p.id}">${p.sec}s sedan</div></div>`;
+            return div;
         }
 
-        function updatePayouts() {
-            activePayouts.forEach(p => {
-                p.seconds++;
-                const el = document.getElementById(`time-${p.id}`);
-                if (el) el.innerText = `${p.seconds} SEK SEDAN`;
-            });
-            if (Math.random() > 0.75) {
-                const newP = { id: Date.now(), name: names[Math.floor(Math.random() * names.length)], amount: Math.floor(Math.random() * 180) + 70, seconds: 0 };
-                activePayouts.unshift(newP);
-                const container = document.getElementById('payout-container');
-                container.insertBefore(createPayoutCard(newP), container.firstChild);
-                if (activePayouts.length > 2) {
-                    activePayouts.pop();
-                    if (container.children.length > 2) container.removeChild(container.lastChild);
-                }
+        function loop() {
+            pActive.forEach(p => { p.sec++; const el = document.getElementById(`t-${p.id}`); if(el) el.innerText = `${p.sec}s sedan`; });
+            if (Math.random() > 0.7) {
+                const newP = { id: Date.now(), name: names[Math.floor(Math.random()*names.length)], amount: Math.floor(Math.random()*150)+50, sec: 0 };
+                pActive.unshift(newP);
+                const c = document.getElementById('payout-container');
+                c.insertBefore(drawP(newP), c.firstChild);
+                if (pActive.length > 3) { pActive.pop(); if(c.children.length > 3) c.removeChild(c.lastChild); }
             }
         }
 
         function showNext() {
             document.getElementById('screen-age').style.display = 'none';
             document.getElementById('screen-steps').classList.add('active');
-            window.scrollTo(0, 0);
-            const container = document.getElementById('payout-container');
-            activePayouts.forEach(p => container.appendChild(createPayoutCard(p)));
-            setInterval(updatePayouts, 1000); 
+            const c = document.getElementById('payout-container');
+            pActive.forEach(p => c.appendChild(drawP(p)));
+            setInterval(loop, 1000); 
         }
     </script>
 </body>
